@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: d4444aa150a4c7e4ba20408dd98c617d
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - Spawn: {fileID: 417892, guid: 1e2e88da1ad6431499c969d1c3f9b4e4, type: 2}
+  - stonePrefab: {fileID: 121988, guid: f5683a7d0a95d9140b89b517f79c7400, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
