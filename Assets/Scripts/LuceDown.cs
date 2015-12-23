@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+//Script per la gestione dell'illuminazione del gioco
 public class LuceDown : MonoBehaviour {
 	public GameObject stonePrefab;
 	public Transform Spawn;
