@@ -15,7 +15,7 @@ public class grapAndDrop : MonoBehaviour
 
         GameObject pippo = transform.FindChild("pippo").gameObject;
 
-        //Debug.DrawLine(transform.position, pippo.transform.position, Color.green);
+        Debug.DrawLine(transform.position, pippo.transform.position, Color.green);
 
         RaycastHit ray;
         if (Physics.Raycast(transform.position, pippo.transform.position - transform.position, Mathf.Infinity, 1 << 8))
@@ -31,13 +31,13 @@ public class grapAndDrop : MonoBehaviour
             }
             else if (Input.GetMouseButton(1))
             {
-                cubo.transform.position = new Vector3(cubo.transform.position.x, cubo.transform.position.y, cubo.transform.position.z+1f);
+                cubo.transform.position = new Vector3(cubo.transform.position.x, cubo.transform.position.y, cubo.transform.position.z + 1f);
             }
             else if (Input.GetMouseButton(0))
             {
-                cubo.transform.position = new Vector3(cubo.transform.position.x, cubo.transform.position.y, cubo.transform.position.z-1f);
+                cubo.transform.position = new Vector3(cubo.transform.position.x, cubo.transform.position.y, cubo.transform.position.z - 1f);
             }
-            
+
         }
 
 

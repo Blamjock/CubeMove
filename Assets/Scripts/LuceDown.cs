@@ -19,7 +19,7 @@ public class LuceDown : MonoBehaviour {
 
 			if (Input.GetKeyDown(KeyCode.E))
 			{
-			stonePrefab = Instantiate(stonePrefab, this.transform.position, Quaternion.identity) as GameObject;
+			stonePrefab = Instantiate(stonePrefab, Spawn.transform.position, Quaternion.identity) as GameObject;
 
 			}
 		}
