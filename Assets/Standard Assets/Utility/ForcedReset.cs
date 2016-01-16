@@ -1,4 +1,5 @@
 using System;
+//File che dava problemi
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityStandardAssets.CrossPlatformInput;
