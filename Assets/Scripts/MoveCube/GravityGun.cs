@@ -5,7 +5,9 @@ public class GravityGun : MonoBehaviour {
 
     public float rootSpeed = 0.0f;
     public float PosY = 0.0f;
-    public Transform Spawn;
+    public float DistanceRaycast = 10.0f;
+    public Transform SpawnCube;
+    public Transform HandCube;
 
     private Transform target;
     private bool active= false;
@@ -25,6 +27,12 @@ public class GravityGun : MonoBehaviour {
         {
             hit.transform.Rotate(Vector3.down, 10.0f);
             Debug.Log("PREMUTO K");
+        }
+        //TASTO O
+        if (Input.GetKey(KeyCode.O) && active == true)
+        {
+            hit.transform.Rotate(Vector3.forward, 10.0f);
+            Debug.Log("PREMUTO O");
         }
         //TASTO K
         if (Input.GetKey(KeyCode.L) && active==true)
@@ -48,7 +56,7 @@ public class GravityGun : MonoBehaviour {
             Debug.Log("PREMUTO MOUSE sinistro");
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out hit, 100.0f, 1 << 8))
+            if (Physics.Raycast(ray, out hit, DistanceRaycast, 1 << 8))
             {
                 Debug.Log("you select the " + hit.transform.name);
                 active = true;
@@ -61,7 +69,7 @@ public class GravityGun : MonoBehaviour {
                 //hit.transform.position = new Vector3(hit.transform.position.x, hitPosY, hit.transform.position.z);
                 // --- modificare la posizione del oggetto indicato dal mouse ---
                 //hit.transform.position = new Vector3(hit.transform.position.x, hitPosY, hit.transform.position.z);
-                hit.transform.position = new Vector3(Spawn.transform.position.x, Spawn.transform.position.y, Spawn.transform.position.z);
+                hit.transform.position = new Vector3(HandCube.transform.position.x, HandCube.transform.position.y, HandCube.transform.position.z);
 
             //  --- scala il cubo quando lo prende ---
                 hit.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
@@ -78,6 +86,8 @@ public class GravityGun : MonoBehaviour {
             hit.transform.GetComponent<Rigidbody>().useGravity = true;
             // --- scala il cubo quando lo prende ---
             hit.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+
+            hit.transform.position = new Vector3(SpawnCube.transform.position.x, SpawnCube.transform.position.y, SpawnCube.transform.position.z);
 
         }
     }
