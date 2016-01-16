@@ -8,14 +8,17 @@ public class GravityGun : MonoBehaviour {
     public float DistanceRaycast = 10.0f;
     public Transform SpawnCube;
     public Transform HandCube;
+    public float Power = 100.0f;
+    
 
     private Transform target;
     private bool active= false;
     //Oggetto bersaglio indicato dal Raycast
     RaycastHit hit;
+    RaycastHit hit2;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 	
 	}
 	
@@ -81,14 +84,49 @@ public class GravityGun : MonoBehaviour {
         {
             active = false;
             Debug.Log("PREMUTO MOUSE DESTRO");
-            hit.transform.parent = null;
+           
             // --- attiva l'opzione use gravity nel rigitbody dell'oggetto agganciato ---
-            hit.transform.GetComponent<Rigidbody>().useGravity = true;
-            // --- scala il cubo quando lo prende ---
-            hit.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+          //  hit.transform.GetComponent<Rigidbody>().useGravity = true;
 
-            hit.transform.position = new Vector3(SpawnCube.transform.position.x, SpawnCube.transform.position.y, SpawnCube.transform.position.z);
 
+            // --- Posiziona il cubo in una zona predefinita ---
+            //hit.transform.position = new Vector3(SpawnCube.transform.position.x, SpawnCube.transform.position.y, SpawnCube.transform.position.z);
+
+            // --- sparare il cubo con una forza ---
+            //hit.transform.GetComponent<Rigidbody>().AddForce(Vector3.right * Power);
+
+            // --- Muovere un ogetto verso un altro 
+
+            Ray ray2 = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray2, out hit2, DistanceRaycast, 1 << 8))
+            {
+                
+                Debug.Log("trovato oggetto che serve");
+                
+                Debug.Log(hit.transform.name + " position" + hit.transform.position);
+                Debug.Log(hit2.transform.name+" position" + hit2.transform.position);
+
+                hit.transform.parent = null;
+                
+
+                // --- attiva l'opzione use gravity nel rigitbody dell'oggetto agganciato ---
+                //hit.transform.GetComponent<Rigidbody>().useGravity = true;
+
+                
+                Vector3 hit2T = hit2.transform.position;
+                hit2T.z += 1.0f;
+                Debug.Log("HIT2T position" + hit2T);
+                // --- Muovi il cubo verso il bersaglio ---
+                hit.transform.position = Vector3.MoveTowards(hit.transform.position, hit2T, Power*Time.deltaTime);
+                
+
+                // --- scala il cubo quando lo prende ---
+                  hit.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                hit.transform.localEulerAngles = new Vector3(0f, 0f, 0f);
+            }
+            else
+                Debug.Log("OGGETTO NON TROVATO ");
+            Debug.Log("you select HIT position FINAL " + hit.transform.position);
         }
     }
 }
