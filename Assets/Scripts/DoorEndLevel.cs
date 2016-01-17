@@ -10,7 +10,7 @@ public class DoorEndLevel : MonoBehaviour {
         if (player = GameObject.FindWithTag("Player"))
         {
 
-            SceneManager.LoadScene("2");
+            SceneManager.LoadScene("MainMenu");
         }
     }
 
