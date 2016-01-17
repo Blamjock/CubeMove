@@ -3,10 +3,10 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-public class MainMenu : MonoBehaviour
+public class ReturnMainMenu : MonoBehaviour
 {
     public Canvas MainCanavas;
- 
+
     public void ReturnOn()
     {
         MainCanavas.enabled = true;
@@ -14,7 +14,7 @@ public class MainMenu : MonoBehaviour
 
     public void LoadOn()
     {
-        SceneManager.LoadScene("MaxLevel0");
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void OnGUI()
@@ -25,3 +25,4 @@ public class MainMenu : MonoBehaviour
         }
     }
 }
+
