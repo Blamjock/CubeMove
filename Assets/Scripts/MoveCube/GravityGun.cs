@@ -61,21 +61,7 @@ public class GravityGun : MonoBehaviour {
                 Vector3 TPlayer = player.transform.position;
                 Debug.Log("you select the " + hit3.transform.name);
                 
-                Vector3 AS = hit3.transform.position;
-                AS.x += 0.5f;
-                AS.z += 0.5f;
-
-                Vector3 AD = hit3.transform.position;
-                AS.x += 0.5f;
-                AS.z -= 0.5f;
-
-                Vector3 BS = hit3.transform.position;
-                AS.x -= 0.5f;
-                AS.z += 0.5f;
-
-                Vector3 BD = hit3.transform.position;
-                AS.x -= 0.5f;
-                AS.z -= 0.5f;
+                
 
                 if (TPlayer.z > TObbiettivo.z+1.0f)
                 {
@@ -92,6 +78,14 @@ public class GravityGun : MonoBehaviour {
                 if (TPlayer.x < TObbiettivo.x - 1.0f)
                 {
                     Debug.Log("PG DAVANTI");
+                }
+                if (TPlayer.y > TObbiettivo.y + 1.0f)
+                {
+                    Debug.Log("PG ALTO");
+                }
+                if (TPlayer.y < TObbiettivo.y - 1.0f)
+                {
+                    Debug.Log("PG BASSO");
                 }
                 Debug.Log("COORDINATE PLAYER "+ player.transform.position+" coordinate obbiettivo " + hit3.transform.position);
                 
@@ -133,11 +127,15 @@ public class GravityGun : MonoBehaviour {
                 Debug.Log("L active is: " + active);
         }
 
-        //CLIC MOUSE DESTRO
+        /*---------------------------------
+        CLIC MOUSE DESTRO 
+        RILASCIO DEL CUBO VERSO UNA DIREZIONE
+        ------------------------------------
+        */
         if (Input.GetMouseButtonDown(1) && active == true)
         {
             
-            Debug.Log("PREMUTO MOUSE DESTRO " +active);
+            Debug.Log("PREMUTO MOUSE DESTRO " + active);
            
             // --- attiva l'opzione use gravity nel rigitbody dell'oggetto agganciato ---
           //  hit.transform.GetComponent<Rigidbody>().useGravity = true;
@@ -161,20 +159,75 @@ public class GravityGun : MonoBehaviour {
                 Debug.Log(hit2.transform.name+" position" + hit2.transform.position);
 
                 hit.transform.parent = null;
- 
+                //****************************************
+                //INDIVIDUARE POSIZIONE DEL PLAYER e ANCORAGGIO CUBO
+                        Vector3 TObbiettivo = hit2.transform.position;
+                        Vector3 TPlayer = player.transform.position;
+                        Debug.Log("you select the " + hit2.transform.name);
+
+                        if (TPlayer.z > TObbiettivo.z + 1.0f)
+                        {
+                            Debug.Log("PG A SINISTRA");
+                            Vector3 hit2T = TObbiettivo;
+                            hit2T.z += 1.0f;
+                            hit.transform.position = hit2T;
+                        }
+                        if (TPlayer.z < TObbiettivo.z - 1.0f)
+                        {
+                            Debug.Log("PG A DESTRA");
+                            Vector3 hit2T = TObbiettivo;
+                            hit2T.z -= 1.0f;
+                            hit.transform.position = hit2T;
+                            Debug.Log("*Coordinate finali cubo *" + hit.transform.position);
+                }
+                        if (TPlayer.x > TObbiettivo.x + 1.0f)
+                        {
+                            Debug.Log("PG DIETRO");
+                            Vector3 hit2T = TObbiettivo;
+                            hit2T.x += 1.0f;
+                            hit.transform.position = hit2T;
+                            Debug.Log("*Coordinate finali cubo *"+ hit.transform.position);
+                }
+                        if (TPlayer.x < TObbiettivo.x - 1.0f)
+                        {
+                            Debug.Log("PG DAVANTI");
+                            Vector3 hit2T = TObbiettivo;
+                            hit2T.x -= 1.0f;
+                            hit.transform.position = hit2T;
+                            Debug.Log("*Coordinate finali cubo *" + hit.transform.position);
+                }
+                        if (TPlayer.y > TObbiettivo.y + 1.0f)
+                        {
+                            Debug.Log("PG ALTO");
+                            Vector3 hit2T = TObbiettivo;
+                            hit2T.y -= 1.0f;
+                            hit.transform.position = hit2T;
+                            Debug.Log("*Coordinate finali cubo *" + hit.transform.position);
+                }
+                        if (TPlayer.y < TObbiettivo.y - 1.0f)
+                        {
+                            Debug.Log("PG BASSO");
+                            Vector3 hit2T = TObbiettivo;
+                            hit2T.y -= 1.0f;
+                            hit.transform.position = hit2T;
+                            Debug.Log("*Coordinate finali cubo *" + hit.transform.position);
+                }
+                //****************************************
+
                 // --- attiva l'opzione use gravity nel rigitbody dell'oggetto agganciato ---
                 //hit.transform.GetComponent<Rigidbody>().useGravity = true;
-       
-                Vector3 hit2T = hit2.transform.position;
-                hit2T.z += 1.0f;
-                Debug.Log("HIT2T position" + hit2T);
+
+               // Vector3 hit2T = hit2.transform.position;
+               // hit2T.z += 1.0f;
+               // Debug.Log("HIT2T position" + hit2T);
                 // --- Muovi il cubo verso il bersaglio ---
 
                 // hit.transform.position = Vector3.MoveTowards(hit.transform.position, hit2T, Power*Time.deltaTime);
-                hit.transform.position =  hit2T;
+               // hit.transform.position =  hit2T;
 
                 // --- scala il cubo quando lo prende ---
                 hit.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                // --- porta gli assi di rotazione a 0
                 hit.transform.localEulerAngles = new Vector3(0f, 0f, 0f);
             }
             else

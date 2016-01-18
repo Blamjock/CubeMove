@@ -10,7 +10,7 @@ public class LuceDown : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-			if (Input.GetKeyDown(KeyCode.E))
+			if (Input.GetKeyDown(KeyCode.F))
 			{
 			    stonePrefab = Instantiate(stonePrefab, Spawn.transform.position, Quaternion.identity) as GameObject;
 			}
