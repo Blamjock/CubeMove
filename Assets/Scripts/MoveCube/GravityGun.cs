@@ -49,7 +49,6 @@ public class GravityGun : MonoBehaviour {
         //ROTAZIONE DEL CUBO IN MANO AVANTI INDIETRO
         if (active == true)
         {
-
             var d = Input.GetAxis("Mouse ScrollWheel");
             if (d > 0f)
             {
@@ -66,10 +65,40 @@ public class GravityGun : MonoBehaviour {
                 Debug.Log("scrolla di " + CubeAngle);
             }
         }
-        //TASTO O
-        if (Input.GetKey(KeyCode.O) && active == true)
+        if (active == false)
         {
-            hit.transform.Rotate(Vector3.forward, 10.0f);
+            var d = Input.GetAxis("Mouse ScrollWheel");
+            if (d > 0f)
+            {
+                Debug.Log("scrolla su");
+                // scroll up
+                Ray rayMoveCube = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(rayMoveCube, out hit3, DistanceRaycast, 1 << 8))
+                {
+                    hit3.transform.position = new Vector3(hit3.transform.position.x - 1f, hit3.transform.position.y, hit3.transform.position.z);
+                }
+            }
+            else if (d < 0f)
+            {
+                // scroll down
+                Debug.Log("scrolla giu");
+                Ray rayMoveCube = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(rayMoveCube, out hit3, DistanceRaycast, 1 << 8))
+                {
+                    hit3.transform.position = new Vector3(hit3.transform.position.x + 1f, hit3.transform.position.y, hit3.transform.position.z);
+                }
+            }
+        }
+
+        //TASTO O
+        if (Input.GetKey(KeyCode.O) && active == false)
+        {
+            Ray rayMoveCube = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(rayMoveCube, out hit3, DistanceRaycast, 1 << 8))
+            {
+                hit3.transform.position = new Vector3(hit3.transform.position.x - 1f, hit3.transform.position.y, hit3.transform.position.z);
+            }
+              
             Debug.Log("PREMUTO O");
         }
         //TASTO K
@@ -119,8 +148,13 @@ public class GravityGun : MonoBehaviour {
                     Debug.Log("PG BASSO");
                 }
                 Debug.Log("COORDINATE PLAYER "+ player.transform.position+" coordinate obbiettivo " + hit3.transform.position);
-                //hit3.transform.GetComponent<MeshRenderer>().material;
-                hit.transform.GetComponent<Rigidbody>().useGravity = true;
+                // --- Modifica il colore del'oggetto selezionato con il recast
+                hit3.transform.GetComponent<Renderer>().materials[0].color=new Color(1.0f,1.0f,1.0f,1.0f);
+                
+                
+                //Debug.Log("MATERIALE "+a);
+
+              //  hit.transform.GetComponent<Rigidbody>().useGravity = true;
             }
             Debug.Log("----------------------------------------------");
         }
