@@ -60,19 +60,36 @@ public class GravityGun : MonoBehaviour {
                 Vector3 TObbiettivo = hit3.transform.position;
                 Vector3 TPlayer = player.transform.position;
                 Debug.Log("you select the " + hit3.transform.name);
-                if (TPlayer.z > TObbiettivo.z)
+                
+                Vector3 AS = hit3.transform.position;
+                AS.x += 0.5f;
+                AS.z += 0.5f;
+
+                Vector3 AD = hit3.transform.position;
+                AS.x += 0.5f;
+                AS.z -= 0.5f;
+
+                Vector3 BS = hit3.transform.position;
+                AS.x -= 0.5f;
+                AS.z += 0.5f;
+
+                Vector3 BD = hit3.transform.position;
+                AS.x -= 0.5f;
+                AS.z -= 0.5f;
+
+                if (TPlayer.z > TObbiettivo.z+1.0f)
                 {
                     Debug.Log("PG A SINISTRA");
                 }
-                if (TPlayer.z<TObbiettivo.z )
+                if (TPlayer.z < TObbiettivo.z -1.0f)
                         {
                     Debug.Log("PG A DESTRA");
                 }
-                if (TPlayer.x > TObbiettivo.x )
+                if (TPlayer.x > TObbiettivo.x + 1.0f)
                 {
                     Debug.Log("PG DIETRO");
                 }
-                if (TPlayer.x < TObbiettivo.x )
+                if (TPlayer.x < TObbiettivo.x - 1.0f)
                 {
                     Debug.Log("PG DAVANTI");
                 }
