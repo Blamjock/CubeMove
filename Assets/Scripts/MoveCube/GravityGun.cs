@@ -10,7 +10,7 @@ public class GravityGun : MonoBehaviour {
     public Transform HandCube;
     public float Power = 100.0f;
     public Transform player;
-    
+    public float CubeAngle = 90.0f;
 
     private Transform target;
     private bool active= false;
@@ -18,7 +18,8 @@ public class GravityGun : MonoBehaviour {
     RaycastHit hit;
     RaycastHit hit2;
     RaycastHit hit3;
-
+    RaycastHit hitBlink;
+    
 
     // Use this for initialization
     void Start () {
@@ -28,11 +29,42 @@ public class GravityGun : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        //TASTO K
-        if (Input.GetKey(KeyCode.K) && active==true)
+        /********************************************
+         ********************* AZIONI PLAYER ********
+        *********************************************/
+        //TASTO E
+        if (Input.GetKey(KeyCode.E) && active == false)
         {
-            hit.transform.Rotate(Vector3.down, 10.0f);
-            Debug.Log("PREMUTO K");
+            Ray ray4 = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray4, out hitBlink, DistanceRaycast, 1 << 8))
+            {
+                Vector3 TObbiettivo = hitBlink.transform.position;
+                Vector3 TPlayer = player.transform.position;
+                player.transform.position = TObbiettivo;
+                hitBlink.transform.position = TPlayer;
+                Debug.Log("you select the " + hitBlink.transform.name);
+            }
+        }
+        //TASTO Mouse ScrollWheel 
+        //ROTAZIONE DEL CUBO IN MANO AVANTI INDIETRO
+        if (active == true)
+        {
+
+            var d = Input.GetAxis("Mouse ScrollWheel");
+            if (d > 0f)
+            {
+                Debug.Log("scrolla su");
+                // scroll up
+                hit.transform.Rotate(Vector3.forward, CubeAngle);
+                Debug.Log("scrolla di "+ CubeAngle);
+            }
+            else if (d < 0f)
+            {
+                // scroll down
+                Debug.Log("scrolla giu");
+                hit.transform.Rotate(Vector3.forward, -CubeAngle);
+                Debug.Log("scrolla di " + CubeAngle);
+            }
         }
         //TASTO O
         if (Input.GetKey(KeyCode.O) && active == true)
@@ -51,6 +83,7 @@ public class GravityGun : MonoBehaviour {
             Debug.Log("Trasform position locale oggetto nel target" + hit.transform.localPosition);
         }
 
+        //TASTO I 
         //conrollo della posizione del player
         if (Input.GetKeyDown(KeyCode.I) )
         {
@@ -59,9 +92,7 @@ public class GravityGun : MonoBehaviour {
             {
                 Vector3 TObbiettivo = hit3.transform.position;
                 Vector3 TPlayer = player.transform.position;
-                Debug.Log("you select the " + hit3.transform.name);
-                
-                
+                Debug.Log("you select the " + hit3.transform.name);             
 
                 if (TPlayer.z > TObbiettivo.z+1.0f)
                 {
@@ -88,21 +119,22 @@ public class GravityGun : MonoBehaviour {
                     Debug.Log("PG BASSO");
                 }
                 Debug.Log("COORDINATE PLAYER "+ player.transform.position+" coordinate obbiettivo " + hit3.transform.position);
-                
-
+                //hit3.transform.GetComponent<MeshRenderer>().material;
+                hit.transform.GetComponent<Rigidbody>().useGravity = true;
             }
             Debug.Log("----------------------------------------------");
         }
 
-        /* 
-                --- ANCORAGGIO E SBLOCCO 
-        */
+        /********************************************
+         **********ANCORAGGIO E SBLOCCO CUBO ********
+        *********************************************/
 
         //CLIC MOUSE SINISTRO
         if (Input.GetMouseButtonDown(0) && active==false)
         {
             
-            Debug.Log("PREMUTO MOUSE sinistro");
+            //Debug.Log("PREMUTO MOUSE sinistro");
+            Debug.Log("PREMUTO MOUSE sinistro ****************** Active " + active);
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(ray, out hit, DistanceRaycast, 1 << 8))
@@ -135,7 +167,7 @@ public class GravityGun : MonoBehaviour {
         if (Input.GetMouseButtonDown(1) && active == true)
         {
             
-            Debug.Log("PREMUTO MOUSE DESTRO " + active);
+            Debug.Log("Ripremuto tasto sinistro ************************ " + active);
            
             // --- attiva l'opzione use gravity nel rigitbody dell'oggetto agganciato ---
           //  hit.transform.GetComponent<Rigidbody>().useGravity = true;
