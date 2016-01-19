@@ -188,6 +188,7 @@ public class GravityGun : MonoBehaviour {
 
             //  --- scala il cubo quando lo prende ---
                 hit.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+                hit.transform.GetComponent<Renderer>().materials[0].color = new Color(5.0f, 5.0f, 5.0f, 5.0f);
                 active = true;
             } else
                 Debug.Log("L active is: " + active);
@@ -262,7 +263,7 @@ public class GravityGun : MonoBehaviour {
                             hit.transform.position = hit2T;
                             Debug.Log("*Coordinate finali cubo *" + hit.transform.position);
                 }
-                        if (TPlayer.y > TObbiettivo.y + 1.0f)
+                      /*  if (TPlayer.y > TObbiettivo.y + 1.0f)
                         {
                             Debug.Log("PG ALTO");
                             Vector3 hit2T = TObbiettivo;
@@ -278,6 +279,7 @@ public class GravityGun : MonoBehaviour {
                             hit.transform.position = hit2T;
                             Debug.Log("*Coordinate finali cubo *" + hit.transform.position);
                 }
+                */
                 //****************************************
 
                 // --- attiva l'opzione use gravity nel rigitbody dell'oggetto agganciato ---

@@ -21,8 +21,8 @@ public class MoveCube : MonoBehaviour
     RaycastHit hit3;
     RaycastHit hitBlink;
 
-
-    // Use this for initialization
+    
+   // Use this for initialization
     void Start()
     {
 
@@ -36,6 +36,8 @@ public class MoveCube : MonoBehaviour
         *********************************************/
         //TASTO E
         //Classe per identificare la posizione del player in base all'oggetto 
+
+    
         if (Input.GetKey(KeyCode.E) && active == false)
         {
             Ray ray4 = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -142,6 +144,7 @@ public class MoveCube : MonoBehaviour
                 {
                     Debug.Log("PG DAVANTI");
                 }
+
                 if (TPlayer.y > TObbiettivo.y + 1.0f)
                 {
                     Debug.Log("PG ALTO");
@@ -250,6 +253,7 @@ public class MoveCube : MonoBehaviour
                     hit.transform.position = hit2T;
                     Debug.Log("*Coordinate finali cubo *" + hit.transform.position);
                 }
+
                 if (TPlayer.y > TObbiettivo.y + 1.0f)
                 {
                     Debug.Log("PG ALTO");
