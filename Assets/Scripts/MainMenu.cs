@@ -14,7 +14,7 @@ public class MainMenu : MonoBehaviour
 
     public void LoadOn()
     {
-        SceneManager.LoadScene("MaxLevel0");
+        SceneManager.LoadScene("Level3");
     }
 
     public void OnGUI()
