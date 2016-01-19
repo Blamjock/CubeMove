@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GravityGun : MonoBehaviour
+public class MoveCube : MonoBehaviour
 {
 
     public float rootSpeed = 0.0f;
@@ -35,6 +35,7 @@ public class GravityGun : MonoBehaviour
          ********************* AZIONI PLAYER ********
         *********************************************/
         //TASTO E
+        //Classe per identificare la posizione del player in base all'oggetto 
         if (Input.GetKey(KeyCode.E) && active == false)
         {
             Ray ray4 = Camera.main.ScreenPointToRay(Input.mousePosition);
