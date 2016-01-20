@@ -10,7 +10,8 @@ public class GravityGun : MonoBehaviour {
     public Transform HandCube;
     public float Power = 100.0f;
     public Transform player;
-    public float CubeAngle = 90.0f;
+    public float CubeAngle = 45.0f;
+    public Color coloreBase;
 
     private Transform target;
     private bool active= false;
@@ -19,7 +20,7 @@ public class GravityGun : MonoBehaviour {
     RaycastHit hit2;
     RaycastHit hit3;
     RaycastHit hitBlink;
-    
+   
 
     // Use this for initialization
     void Start () {
@@ -29,12 +30,28 @@ public class GravityGun : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        /********************************************
-         ********************* AZIONI PLAYER ********
-        *********************************************/
-        //TASTO E
-        if (Input.GetKey(KeyCode.E) && active == false)
+
+
+        /*
+        FUNZIONESSS:
+        void Deployer()
         {
+            deployed = true;
+            rigidbody.drag= paracachute;
+            parachute.animation.plat();
+
+        }
+        Chiamata: Deployer();
+        */
+
+
+        
+            /********************************************
+             ********************* AZIONI PLAYER ********
+            *********************************************/
+            //TASTO E
+       if (Input.GetKey(KeyCode.E) && active == false)
+       {
             Ray ray4 = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray4, out hitBlink, DistanceRaycast, 1 << 8))
             {
@@ -188,7 +205,10 @@ public class GravityGun : MonoBehaviour {
 
             //  --- scala il cubo quando lo prende ---
                 hit.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-                hit.transform.GetComponent<Renderer>().materials[0].color = new Color(5.0f, 5.0f, 5.0f, 5.0f);
+                //cambia il colore del cubo quando lo hai in mano
+                coloreBase = hit.transform.GetComponent<Renderer>().materials[0].color;
+                hit.transform.GetComponent<Renderer>().materials[0].color = new Color(1.0f, 0.92f, 0.016f, 1.0f);
+                
                 active = true;
             } else
                 Debug.Log("L active is: " + active);
@@ -297,6 +317,8 @@ public class GravityGun : MonoBehaviour {
                 hit.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 // --- porta gli assi di rotazione a 0
                 hit.transform.localEulerAngles = new Vector3(0f, 0f, 0f);
+                // --- riporta il colore del cubo a quello originale
+                hit.transform.GetComponent<Renderer>().materials[0].color = coloreBase;
             }
             else
                 Debug.Log("OGGETTO NON TROVATO ");
